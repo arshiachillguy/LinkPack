@@ -67,11 +67,11 @@ public class LinkModel {
     }
 
     public LinkModel(int clicks, LocalDateTime timestamp, String shortCODE, String originalURL, Long id) {
-        Clicks = clicks;
-        this.timestamp = timestamp;
-        ShortCODE = shortCODE;
-        OriginalUrl = originalURL;
-        Id = id;
+        this.Clicks = 0;
+        this.timestamp = LocalDateTime.now();
+        this.ShortCODE = shortCODE;
+        this.OriginalUrl = originalURL;
+        this.Id = id;
     }
 
     public LinkModel(Long aLong, String originalUrl, String code) {
