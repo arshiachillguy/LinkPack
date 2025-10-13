@@ -45,10 +45,10 @@ public class UrlController {
     @GetMapping("/{shortCode}")
     public ResponseEntity<?> redirectToOriginal(@PathVariable String shortCode){
         try {
-            String originalUrl = service.FindOriginalUrl(shortCode);
-            if (originalUrl != null){
+            String OriginalUrl = service.FindOriginalUrl(shortCode);
+            if (OriginalUrl != null){
                 //this line will redirect us to the main page of the link
-                return ResponseEntity.status(HttpStatus.FOUND).header(HttpHeaders.LOCATION, originalUrl).build();
+                return ResponseEntity.status(HttpStatus.FOUND).header(HttpHeaders.LOCATION, OriginalUrl).build();
             }else {
                 return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("link not found please check your link ! ");
             }
