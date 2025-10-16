@@ -3,25 +3,21 @@ import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
-//@Entity
-//@Table(name = "shortly link")
 public class LinkModel {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-//    @Column(nullable = false)
     private String OriginalUrl;
 
-//    @Size(min = 3, max = 10)
     private String ShortCODE;
 
 
     private LocalDateTime timestamp;
 
-//    @Min(0)
     private int Clicks;
+
+    public LinkModel(String origin, String code) {
+    }
 
     public Long getId() {
         return Id;
@@ -62,10 +58,7 @@ public class LinkModel {
     public void setClicks(int clicks) {
         Clicks = clicks;
     }
-
-    public LinkModel() {
-    }
-
+    
     public LinkModel(int clicks, LocalDateTime timestamp, String shortCODE, String originalURL, Long id) {
         this.Clicks = 0;
         this.timestamp = LocalDateTime.now();
