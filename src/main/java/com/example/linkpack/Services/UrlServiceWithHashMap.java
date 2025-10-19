@@ -1,15 +1,11 @@
 package com.example.linkpack.Services;
 
-import com.example.linkpack.Models.LinkModel;
-
-import java.util.Optional;
 //@Service
 public class UrlServiceWithHashMap {
-    //    private Map<String, LinkModel> urlStorage = new HashMap<>();
-    //    private Long Id = 1L;
-
-
-//    // Create a short Url From original Url
+//       private Map<String, LinkModelWithDataBase> urlStorage = new HashMap<>();
+//       private Long Id = 1L;
+//
+    // Create a short Url From original Url
 //    public String ShortUrl(String OriginalUrl){
 //        if (OriginalUrl == null){  return null;  }
 //
