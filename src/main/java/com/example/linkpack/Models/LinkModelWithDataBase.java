@@ -11,7 +11,7 @@ public class LinkModelWithDataBase {
         private Long Id;
 
         @Column(nullable = false)
-        private String OriginalUrl;
+        private String originalUrl;
 
 
         @Column(name = "short_code", unique = true, nullable = false, length = 15)
@@ -21,7 +21,7 @@ public class LinkModelWithDataBase {
         private LocalDateTime timestamp;
 
         @Column(name = "clicks")
-        private int Clicks;
+        private int clicks;
 
         public Long getId() {
             return Id;
@@ -32,11 +32,11 @@ public class LinkModelWithDataBase {
         }
 
         public String getOriginalUrl() {
-            return OriginalUrl;
+            return originalUrl;
         }
 
         public void setOriginalUrl(String originalUrl) {
-            OriginalUrl = originalUrl;
+                originalUrl = originalUrl;
         }
 
         public String getshortCode() {
@@ -56,11 +56,11 @@ public class LinkModelWithDataBase {
         }
 
         public int getClicks() {
-            return Clicks;
+            return clicks;
         }
 
         public void setClicks(int clicks) {
-            Clicks = clicks;
+            clicks = clicks;
         }
 
         // default constructor
@@ -72,10 +72,10 @@ public class LinkModelWithDataBase {
         }
 
         public LinkModelWithDataBase(int clicks, LocalDateTime timestamp, String shortCode, String originalURL, Long id) {
-            this.Clicks = 0;
+            this.clicks = 0;
             this.timestamp = LocalDateTime.now();
             this.shortCode = shortCode;
-            this.OriginalUrl = originalURL;
+            this.originalUrl = originalURL;
             this.Id = id;
         }
 
@@ -86,10 +86,10 @@ public class LinkModelWithDataBase {
         public String toString() {
             return "model{" +
                     "Id=" + Id +
-                    ", OriginalURL='" + OriginalUrl + '\'' +
+                    ", OriginalURL='" + originalUrl + '\'' +
                     ", ShortCODE='" + shortCode + '\'' +
                     ", timestamp=" + timestamp +
-                    ", Clicks=" + Clicks +
+                    ", Clicks=" + clicks +
                     '}';
         }
 }
