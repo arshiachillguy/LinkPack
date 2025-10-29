@@ -2,7 +2,7 @@ package com.example.linkpack.RepositoryLink;
 
 import com.example.linkpack.Models.LinkModelWithDataBase;
 import org.springframework.data.jpa.repository.JpaRepository;
-kk`import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
