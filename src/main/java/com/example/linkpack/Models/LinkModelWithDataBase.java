@@ -68,8 +68,6 @@ public class LinkModelWithDataBase {
 
         }
 
-        public LinkModelWithDataBase(String origin, String code) {
-        }
 
         public LinkModelWithDataBase(int clicks, LocalDateTime timestamp, String shortCode, String originalURL, Long id) {
             this.clicks = 0;
@@ -79,8 +77,6 @@ public class LinkModelWithDataBase {
             this.Id = id;
         }
 
-        public LinkModelWithDataBase(Long aLong, String originalUrl, String code) {
-        }
 
         @Override
         public String toString() {
