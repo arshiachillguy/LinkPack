@@ -10,24 +10,18 @@ public class LinkStatsResponse {
     private LocalDateTime timestamp;
     private String shortUrl;
 
-    public LinkStatsResponse(String shortCode, String originalUrl, int clicks, LocalDateTime createdAt, String shortUrl) {
-        this.shortCode = shortCode;
+    public LinkStatsResponse(String originalUrl, String shortcode, String shorturl , LocalDateTime timestamp) {
         this.originalUrl = originalUrl;
-        this.clicks = clicks;
-        this.timestamp = createdAt;
-        this.shortUrl = shortUrl;
+        this.shortCode = shortcode;
+        this.shortUrl = shorturl;
+        this.timestamp = LocalDateTime.now();
     }
 
-    public LinkStatsResponse(LinkModelWithDataBase link, String shortUrl) {
-        this.originalUrl = link.getOriginalUrl();
-        this.shortCode = link.getshortCode();
-        this.shortUrl = shortUrl + "/" + link.getshortCode();
-        this.clicks = link.getClicks();
-        this.timestamp = link.getTimestamp();
+    public LinkStatsResponse(String originalUrl, int clicks, LocalDateTime timestamp, String s) {
+        this.clicks = 0;
+        this.timestamp = LocalDateTime.now();
     }
 
-    public LinkStatsResponse(String originalUrl, String shortcode, String shorturl) {
-    }
 
     // Getters
     public String getShortCode() {

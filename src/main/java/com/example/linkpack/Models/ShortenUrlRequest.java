@@ -1,10 +1,11 @@
 package com.example.linkpack.Models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.processing.Pattern;
 
 // Request DTO
 public class ShortenUrlRequest {
-    @JsonProperty("url")
+    @JsonProperty("originalUrl")
     private String originalUrl;
 
     // constructor, getters, setters

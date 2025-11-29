@@ -16,7 +16,7 @@ public class OverviewStatsResponse {
         this.totalClicks = totalClicks;
         this.mostPopularShortCode = mostPopularShortCode;
         this.mostPopularClicks = mostPopularClicks;
-        this.generatedAt = generatedAt;
+        this.generatedAt = LocalDateTime.now();
     }
 
     // Getters

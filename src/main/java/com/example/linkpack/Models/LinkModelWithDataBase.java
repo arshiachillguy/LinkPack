@@ -21,14 +21,14 @@ public class LinkModelWithDataBase {
         private LocalDateTime timestamp;
 
         @Column(name = "clicks")
-        private int clicks;
+        private int clicks = 0;
 
         public Long getId() {
             return Id;
         }
 
-        public void setId(Long id) {
-            Id = id;
+        public void setId(Long Id) {
+            this.Id = this.Id;
         }
 
         public String getOriginalUrl() {
@@ -36,7 +36,7 @@ public class LinkModelWithDataBase {
         }
 
         public void setOriginalUrl(String originalUrl) {
-                originalUrl = originalUrl;
+                this.originalUrl = originalUrl;
         }
 
         public String getshortCode() {
@@ -60,23 +60,13 @@ public class LinkModelWithDataBase {
         }
 
         public void setClicks(int clicks) {
-            clicks = clicks;
+            this.clicks = clicks;
         }
 
         // default constructor
         public LinkModelWithDataBase(){
 
         }
-
-
-        public LinkModelWithDataBase(int clicks, LocalDateTime timestamp, String shortCode, String originalURL, Long id) {
-            this.clicks = 0;
-            this.timestamp = LocalDateTime.now();
-            this.shortCode = shortCode;
-            this.originalUrl = originalURL;
-            this.Id = id;
-        }
-
 
         @Override
         public String toString() {
