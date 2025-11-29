@@ -5,6 +5,7 @@ import com.example.linkpack.RepositoryLink.LinkRepository;
 import com.example.linkpack.Services.UrlServiceWithDataBase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -23,21 +24,23 @@ public class UrlControllerWithDatabase {
         private UrlServiceWithDataBase urlService;
 
         @PostMapping("/shorten")
-        public ResponseEntity<?> shortenUrl(@RequestBody ShortenUrlRequest request) {
+        public ResponseEntity<?> shortenUrl(@Validated @RequestBody ShortenUrlRequest request) {
             try {
-                if (request == null || request.getOriginalUrl() == null){
+                if (request.getOriginalUrl() == null || request.getOriginalUrl().isEmpty()){
                     return ResponseEntity.badRequest().body("URL can not be empty !!");
                 }
-                System.out.println("Json :" + request);
-                String shortCode = urlService.createShortLink(request.getOriginalUrl());
-                String shortUrl = "http://localhost:8080/" + shortCode;
-                // ایجاد Response برای درخواست اولیه
-                ShortURl response = new ShortURl(
+                System.out.println("recived : " + request.getOriginalUrl());
+                System.out.println("-------------------------------------");
+
+                String shortcode = urlService.createShortLink(request.getOriginalUrl());
+                String shorturl = "http://localhost:8080/" + shortcode;
+                LinkStatsResponse response = new LinkStatsResponse(
                         request.getOriginalUrl(),
-                        shortUrl,
-                        shortCode
+                        shortcode,
+                        shorturl,
+                        LocalDateTime.now()
                 );
-                System.out.println("Json2:" + request);
+
                 return ResponseEntity.ok(response);
 
             } catch (Exception e) {
@@ -61,7 +64,6 @@ public class UrlControllerWithDatabase {
 
             // ایجاد response برای آمار
             LinkStatsResponse stats = new LinkStatsResponse(
-                    linkData.getshortCode(),
                     linkData.getOriginalUrl(),
                     linkData.getClicks(),
                     linkData.getTimestamp(),
