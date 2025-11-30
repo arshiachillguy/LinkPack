@@ -64,7 +64,7 @@ public class UrlControllerWithDatabase {
 
             // ایجاد response برای آمار
             LinkStatsResponse stats = new LinkStatsResponse(
-                    linkData.getOriginalUrl(),
+                    linkData.getoriginalUrl(),
                     linkData.getClicks(),
                     linkData.getTimestamp(),
                     "http://localhost:8080/" + linkData.getshortCode()

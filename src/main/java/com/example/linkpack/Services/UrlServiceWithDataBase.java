@@ -18,35 +18,7 @@ public class UrlServiceWithDataBase {
     private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static final int CODE_LENGTH = 6;
 
-    public String createShortLink(String originalUrl) {
-        // بررسی اینکه URL قبلاً وجود دارد
-        Optional<LinkModelWithDataBase> existingLink = linkRepository.findByOriginalUrl(originalUrl);
-        if (existingLink.isPresent()) {
-            return existingLink.get().getshortCode();
-        }
-
-        if (originalUrl == null || originalUrl.trim().isEmpty()){
-            throw new IllegalArgumentException("URL can not be null or empty buddy !!");
-        }
-
-        // تولید کد کوتاه یکتا
-        String shortCode;
-        do {
-            shortCode = generateShortCode();
-        } while (linkRepository.findByShortCode(shortCode).isPresent());
-
-        // ایجاد و ذخیره لینک جدید
-        LinkModelWithDataBase link = new LinkModelWithDataBase();
-        link.setOriginalUrl(originalUrl);
-        link.setShortCode(shortCode);
-        link.setClicks(0);
-        link.setTimestamp(LocalDateTime.now());
-
-        linkRepository.save(link);
-        return shortCode;
-    }
-
-    private String generateShortCode() {
+    public String generateShortCode() {
         Random random = new Random();
         StringBuilder sb = new StringBuilder(CODE_LENGTH);
 
@@ -58,6 +30,31 @@ public class UrlServiceWithDataBase {
         return sb.toString();
     }
 
+    public String createShortLink(String originalUrl) {
+        // بررسی اینکه URL قبلاً وجود دارد
+        Optional<LinkModelWithDataBase> existingLink = linkRepository.findByOriginalUrl(originalUrl);
+        if (existingLink.isPresent()) {
+            return existingLink.get().getshortCode();
+        }
+
+        System.out.println("🔍 Existing link found: " + existingLink.isPresent());
+        if (originalUrl == null || originalUrl.trim().isEmpty()){
+            System.out.println("🔍 Returning existing code: " + existingLink);
+            throw new IllegalArgumentException("URL can not be null or empty buddy !!");
+        }
+
+        // ایجاد و ذخیره لینک جدید
+        LinkModelWithDataBase link = new LinkModelWithDataBase();
+        link.setOriginalUrl(originalUrl);
+        link.setShortCode(generateShortCode());
+        link.setTimestamp(LocalDateTime.now());
+        link.setClicks(0);
+        LinkModelWithDataBase savedLink = linkRepository.save(link);
+        return savedLink.getshortCode();
+
+    }
+
+
     // متد برای redirect کردن
     public Optional<String> getOriginalUrl(String shortCode) {
         Optional<LinkModelWithDataBase> link = linkRepository.findByShortCode(shortCode);
@@ -67,7 +64,7 @@ public class UrlServiceWithDataBase {
             foundLink.setClicks(foundLink.getClicks() + 1);
             linkRepository.save(foundLink);
 
-            return Optional.of(foundLink.getOriginalUrl());
+            return Optional.of(foundLink.getoriginalUrl());
         }
         return Optional.empty();
     }
