@@ -4,10 +4,13 @@ import com.example.linkpack.Models.*;
 import com.example.linkpack.RepositoryLink.LinkRepository;
 import com.example.linkpack.Services.UrlServiceWithDataBase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -15,6 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api1")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UrlControllerWithDatabase {
 
         @Autowired
@@ -33,7 +37,7 @@ public class UrlControllerWithDatabase {
                 System.out.println("-------------------------------------");
 
                 String shortcode = urlService.createShortLink(request.getOriginalUrl());
-                String shorturl = "http://localhost:8080/" + shortcode;
+                String shorturl = "http://localhost:8080/api1/" + shortcode;
                 LinkStatsResponse response = new LinkStatsResponse(
                         request.getOriginalUrl(),
                         shortcode,
@@ -50,36 +54,57 @@ public class UrlControllerWithDatabase {
             }
         }
 
+        @GetMapping("/{shortCode}")
+        public ResponseEntity<?> redirectToOriginalUrl(@PathVariable String shortCode){
+            try{
+                Optional<LinkModelWithDataBase> link = linkRepository.findByShortCode(shortCode);
+                if (link.isEmpty()) {
+                    return ResponseEntity.notFound().build();
+                }
 
-    @GetMapping("/{shortCode}/stats")
-    public ResponseEntity<?> getLinkStats(@PathVariable String shortCode) {
-        try {
-            Optional<LinkModelWithDataBase> link = linkRepository.findByShortCode(shortCode);
+                LinkModelWithDataBase linkshortcode = link.get();
+                String originalUrl = linkshortcode.getoriginalUrl();
 
-            if (link.isEmpty()) {
-                return ResponseEntity.notFound().build();
+                HttpHeaders headers = new HttpHeaders();
+                headers.setLocation(URI.create(originalUrl));
+                return new ResponseEntity<>(headers, HttpStatus.FOUND);
+
+
+            }catch (Exception e){
+                return ResponseEntity.badRequest().body("nothing here to show about data");
             }
-
-            LinkModelWithDataBase linkData = link.get();
-
-            // ایجاد response برای آمار
-            LinkStatsResponse stats = new LinkStatsResponse(
-                    linkData.getoriginalUrl(),
-                    linkData.getClicks(),
-                    linkData.getTimestamp(),
-                    "http://localhost:8080/" + linkData.getshortCode()
-            );
-
-            return ResponseEntity.ok(stats);
-
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("nothing here to show about link ! ");
         }
-    }
 
 
-    @GetMapping("/stats/overview")
-    public ResponseEntity<?> getOverviewStats() {
+        @GetMapping("/{shortCode}/stats")
+         public ResponseEntity<?> getLinkStats(@PathVariable String shortCode) {
+            try {
+              Optional<LinkModelWithDataBase> link = linkRepository.findByShortCode(shortCode);
+
+             if (link.isEmpty()) {
+                    return ResponseEntity.notFound().build();
+                }
+
+                LinkModelWithDataBase linkData = link.get();
+
+                // ایجاد response برای آمار
+                LinkStatsResponse stats = new LinkStatsResponse(
+                        linkData.getoriginalUrl(),
+                        linkData.getClicks(),
+                        linkData.getTimestamp(),
+                        "http://localhost:8080/" + linkData.getshortCode()
+                );
+
+                return ResponseEntity.ok(stats);
+
+            } catch (Exception e) {
+                return ResponseEntity.badRequest().body("nothing here to show about link ! ");
+            }
+         }
+
+
+        @GetMapping("/stats/overview")
+        public ResponseEntity<?> getOverviewStats() {
         try {
             List<LinkModelWithDataBase> allLinks = linkRepository.findAll();
 
