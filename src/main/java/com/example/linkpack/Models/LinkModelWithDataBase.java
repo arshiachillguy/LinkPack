@@ -31,7 +31,7 @@ public class LinkModelWithDataBase {
             this.Id = this.Id;
         }
 
-        public String getOriginalUrl() {
+        public String getoriginalUrl() {
             return originalUrl;
         }
 

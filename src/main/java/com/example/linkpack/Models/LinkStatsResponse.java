@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 public class LinkStatsResponse {
     private String shortCode;
     private String originalUrl;
-    private int clicks;
+    private int Clicks;
     private LocalDateTime timestamp;
     private String shortUrl;
 
@@ -17,19 +17,23 @@ public class LinkStatsResponse {
         this.timestamp = LocalDateTime.now();
     }
 
-    public LinkStatsResponse(String originalUrl, int clicks, LocalDateTime timestamp, String s) {
-        this.clicks = 0;
+
+
+    public LinkStatsResponse(String shortCode, String originalUrl, LocalDateTime timestamp, int clicks, String url) {
+        this.shortCode = shortCode;
+        this.originalUrl = originalUrl;
         this.timestamp = LocalDateTime.now();
+        this.Clicks = clicks;
     }
 
 
     // Getters
     public String getShortCode() {
         return shortCode; }
-    public String getOriginalUrl() {
+    public String getoriginalUrl() {
         return originalUrl; }
     public int getClicks() {
-        return clicks; }
+        return Clicks; }
     public LocalDateTime getCreatedAt() {
         return timestamp; }
     public String getShortUrl() {
