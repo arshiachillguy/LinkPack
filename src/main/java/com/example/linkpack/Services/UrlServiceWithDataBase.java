@@ -37,6 +37,12 @@ public class UrlServiceWithDataBase {
             return existingLink.get().getshortCode();
         }
 
+        if (!originalUrl.startsWith("https")){
+           originalUrl = "https://" + originalUrl ;
+        }else {
+            return originalUrl;
+        }
+
         System.out.println("🔍 Existing link found: " + existingLink.isPresent());
         if (originalUrl == null || originalUrl.trim().isEmpty()){
             System.out.println("🔍 Returning existing code: " + existingLink);

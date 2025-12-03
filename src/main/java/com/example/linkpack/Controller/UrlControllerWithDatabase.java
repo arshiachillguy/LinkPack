@@ -3,6 +3,7 @@ package com.example.linkpack.Controller;
 import com.example.linkpack.Models.*;
 import com.example.linkpack.RepositoryLink.LinkRepository;
 import com.example.linkpack.Services.UrlServiceWithDataBase;
+import org.aspectj.apache.bcel.util.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api1")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class UrlControllerWithDatabase {
 
         @Autowired
@@ -63,8 +64,11 @@ public class UrlControllerWithDatabase {
                 }
 
                 LinkModelWithDataBase linkshortcode = link.get();
-                String originalUrl = linkshortcode.getoriginalUrl();
+                int clicks = linkshortcode.getClicks();
+                linkshortcode.setClicks(clicks + 1);
+                linkRepository.save(linkshortcode);
 
+                String originalUrl = linkshortcode.getoriginalUrl();
                 HttpHeaders headers = new HttpHeaders();
                 headers.setLocation(URI.create(originalUrl));
                 return new ResponseEntity<>(headers, HttpStatus.FOUND);
@@ -89,9 +93,10 @@ public class UrlControllerWithDatabase {
 
                 // ایجاد response برای آمار
                 LinkStatsResponse stats = new LinkStatsResponse(
+                        linkData.getshortCode(),
                         linkData.getoriginalUrl(),
-                        linkData.getClicks(),
                         linkData.getTimestamp(),
+                        linkData.getClicks(),
                         "http://localhost:8080/" + linkData.getshortCode()
                 );
 
