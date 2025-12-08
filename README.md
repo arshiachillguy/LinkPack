@@ -1,4 +1,4 @@
-# React + TypeScript + Vite
+# React + TypeScript 
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
@@ -169,8 +169,3 @@ mvn spring-boot:run
 3. Share the generated short URL
 4. Monitor clicks and analytics through `/api/analytics/{shortCode}`
 
-## Support
-
-For support and questions, please open an issue in the GitHub repository or contact the development team.
-
-> > > > > > > bcf989de7fab6633caa9e590fbc7d4d21b49bf76
