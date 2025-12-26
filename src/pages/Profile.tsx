@@ -5,44 +5,55 @@ export default function Profile() {
   const { theme, setTheme, fontSize, setFontSize } = useContext(UIContext);
 
   return (
-    <div 
+    <div
       className={`flex justify-center items-start pt-24 min-h-screen transition duration-500 font-${fontSize}`}
     >
       <div
         className={`
-          w-full max-w-md p-8 rounded-2xl shadow-xl backdrop-blur-xl 
-          transition duration-500 space-y-8 border
-          ${theme === "dark"
-            ? "bg-white/10 border-white/20 text-white"
-            : "bg-white/70 border-gray-300 text-gray-800"
+          animate-fadeIn backdrop-blur-xl bg-white/10 border border-white/20 
+             shadow-2xl p-10 rounded-2xl w-full max-w-3xl text-white 
+             transition-all duration-300
+          ${
+            theme === "dark"
+              ? "bg-white/10 border-white/20 text-white"
+              : "bg-white/70 border-gray-300 text-gray-800"
           }
         `}
       >
-
         <h2 className="text-3xl font-bold text-center">Profile Settings</h2>
 
         {/* ===== Security Section ===== */}
         <div className="space-y-3">
-          <h3 className="text-xl font-semibold flex items-center gap-2">🔐 Security</h3>
+          <h3 className="text-xl font-semibold flex items-center gap-2">
+            🔐 Security
+          </h3>
 
           <button className="w-full text-left hover:opacity-70 transition">
             Change Email
           </button>
 
-          <div className={`border-b ${theme === "dark" ? "border-white/10" : "border-black/10"} my-2`} />
+          <div
+            className={`border-b ${
+              theme === "dark" ? "border-white/10" : "border-black/10"
+            } my-2`}
+          />
 
           <button className="w-full text-left hover:opacity-70 transition">
             Change Password
           </button>
         </div>
 
-
-        <div className={`border-b ${theme === "dark" ? "border-white/10" : "border-black/10"} my-4`} />
-
+        <div
+          className={`border-b ${
+            theme === "dark" ? "border-white/10" : "border-black/10"
+          } my-4`}
+        />
 
         {/* ===== Appearance Section ===== */}
         <div className="space-y-4">
-          <h3 className="text-xl font-semibold flex items-center gap-2">⚙ Appearance</h3>
+          <h3 className="text-xl font-semibold flex items-center gap-2">
+            ⚙ Appearance
+          </h3>
 
           {/* Theme Toggle */}
           <div className="flex justify-between items-center">
@@ -56,8 +67,11 @@ export default function Profile() {
             </button>
           </div>
 
-          <div className={`border-b ${theme === "dark" ? "border-white/10" : "border-black/10"} my-2`} />
-
+          <div
+            className={`border-b ${
+              theme === "dark" ? "border-white/10" : "border-black/10"
+            } my-2`}
+          />
 
           {/* Font Size */}
           <div className="flex items-center justify-between">
@@ -78,7 +92,6 @@ export default function Profile() {
             </select>
           </div>
         </div>
-
       </div>
     </div>
   );
