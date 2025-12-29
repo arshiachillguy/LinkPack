@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease-out;
+}
+body, html, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at top, #0f172a, #020617 80%);
+  background-attachment: fixed;
+}
+.sidebar-item{
+  @apply px-4 py-2 rounded-lg hover:bg-gray-800 transition cursor-pointer;
+}
+
+.btn-setting{
+  @apply w-full p-3 bg-white/10 hover:bg-white/20 rounded-lg transition cursor-pointer text-left;
+}
+/* سایز متن بر اساس انتخاب کاربر */
+.font-sm { font-size: 14px; }
+.font-md { font-size: 16px; }
+.font-lg { font-size: 18px; }
+.font-xl { font-size: 22px; }
+body.light {
+  background: radial-gradient(circle at top, #ffffff, #e7e7e7 80%);
+}
+
+body.dark {
+  background: radial-gradient(circle at top, #0f172a, #020617 80%);
+}
+
+
