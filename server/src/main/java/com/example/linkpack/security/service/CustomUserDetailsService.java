@@ -1,7 +1,7 @@
-package com.example.linkpack.Services;
+package com.example.linkpack.security.service;
 
-import com.example.linkpack.Models.User;
-import com.example.linkpack.RepositoryLink.UserRepository;
+import com.example.linkpack.security.Model.User;
+import com.example.linkpack.security.Repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

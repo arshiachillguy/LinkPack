@@ -1,7 +1,7 @@
-package com.example.linkpack.config;
+package com.example.linkpack.security.config;
 
-import com.example.linkpack.Services.CustomUserDetailsService;
-import com.example.linkpack.Services.JwtService;
+import com.example.linkpack.security.service.CustomUserDetailsService;
+import com.example.linkpack.security.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
