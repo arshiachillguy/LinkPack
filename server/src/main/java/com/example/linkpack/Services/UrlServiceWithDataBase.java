@@ -1,13 +1,14 @@
 package com.example.linkpack.Services;
 
-import com.example.linkpack.Models.LinkModelWithDataBase;
-import com.example.linkpack.RepositoryLink.LinkRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Random;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.linkpack.Models.LinkModelWithDataBase;
+import com.example.linkpack.RepositoryLink.LinkRepository;
 
 @Service
 public class UrlServiceWithDataBase {
@@ -31,22 +32,19 @@ public class UrlServiceWithDataBase {
     }
 
     public String createShortLink(String originalUrl) {
-        // بررسی اینکه URL قبلاً وجود دارد
-        Optional<LinkModelWithDataBase> existingLink = linkRepository.findByOriginalUrl(originalUrl);
+
+        if (originalUrl == null || originalUrl.trim().isEmpty()){
+            throw new IllegalArgumentException("URL can not be null or empty buddy !!");
+        }
+
+         // نرمال‌سازی
+        originalUrl = normalizeUrl(originalUrl);
+
+        Optional<LinkModelWithDataBase> existingLink =
+                linkRepository.findByOriginalUrl(originalUrl);
+
         if (existingLink.isPresent()) {
             return existingLink.get().getshortCode();
-        }
-
-        if (!originalUrl.startsWith("https")){
-           originalUrl = "https://" + originalUrl ;
-        }else {
-            return originalUrl;
-        }
-
-        System.out.println("🔍 Existing link found: " + existingLink.isPresent());
-        if (originalUrl == null || originalUrl.trim().isEmpty()){
-            System.out.println("🔍 Returning existing code: " + existingLink);
-            throw new IllegalArgumentException("URL can not be null or empty buddy !!");
         }
 
         // ایجاد و ذخیره لینک جدید
@@ -59,6 +57,26 @@ public class UrlServiceWithDataBase {
         return savedLink.getshortCode();
 
     }
+
+    private String normalizeUrl(String url) {
+
+    url = url.trim().toLowerCase();
+
+    url = url.replaceAll("^https?://+", "https://");
+
+    if (!url.startsWith("http")) {
+        url = "https://" + url;
+    }
+
+    url = url.replace("https://www.", "https://");
+
+        if (url.endsWith("/")) {
+            url = url.substring(0, url.length() - 1);
+        }
+
+        return url ;
+    }
+
 
 
     // متد برای redirect کردن

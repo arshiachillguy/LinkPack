@@ -1,21 +1,30 @@
 package com.example.linkpack.Controller;
 
-import com.example.linkpack.Models.*;
-import com.example.linkpack.RepositoryLink.LinkRepository;
-import com.example.linkpack.Services.UrlServiceWithDataBase;
-import org.aspectj.apache.bcel.util.Repository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.linkpack.Models.LinkModelWithDataBase;
+import com.example.linkpack.Models.LinkStatsResponse;
+import com.example.linkpack.Models.OverviewStatsResponse;
+import com.example.linkpack.Models.ShortenUrlRequest;
+import com.example.linkpack.RepositoryLink.LinkRepository;
+import com.example.linkpack.Services.UrlServiceWithDataBase;
 
 @RestController
 @RequestMapping("/api1")
@@ -28,6 +37,7 @@ public class UrlControllerWithDatabase {
         @Autowired
         private UrlServiceWithDataBase urlService;
 
+        // make short link from original link
         @PostMapping("/shorten")
         public ResponseEntity<?> shortenUrl(@Validated @RequestBody ShortenUrlRequest request) {
             try {
@@ -55,6 +65,7 @@ public class UrlControllerWithDatabase {
             }
         }
 
+        // redirect to original link page
         @GetMapping("/{shortCode}")
         public ResponseEntity<?> redirectToOriginalUrl(@PathVariable String shortCode){
             try{
@@ -79,7 +90,7 @@ public class UrlControllerWithDatabase {
             }
         }
 
-
+        // result for one link
         @GetMapping("/{shortCode}/stats")
          public ResponseEntity<?> getLinkStats(@PathVariable String shortCode) {
             try {
@@ -107,7 +118,7 @@ public class UrlControllerWithDatabase {
             }
          }
 
-
+         // totoal result 
         @GetMapping("/stats/overview")
         public ResponseEntity<?> getOverviewStats() {
         try {

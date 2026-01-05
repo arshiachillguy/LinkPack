@@ -1,14 +1,7 @@
-import axios from "axios";
+import apiClient from "./apiClient";
 
-// base config
-const api = axios.create({
-  baseURL: "http://localhost:8080/api1",
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+/*TYPES*/
 
-// Types
 export interface LinkStatsResponse {
   shortCode: string;
   originalUrl: string;
@@ -29,22 +22,16 @@ export interface ShortenUrlRequest {
   originalUrl: string;
 }
 
-// get stats for one short link
-export const getLinkStats = async (shortCode: string) => {
-  const response = await api.get<LinkStatsResponse>(`/${shortCode}/stats`);
-  return response.data;
-};
-
-// get overview stats
-export const getOverviewStats = async () => {
-  const response = await api.get<OverviewStatsResponse>(`/stats/overview`);
-  return response.data;
-};
+/*PROTECTED APIs */
 
 // create short link
-export const shortenUrl = async (originalUrl: string) => {
-  const response = await api.post<LinkStatsResponse>(`/shorten`, {
-    originalUrl,
-  } as ShortenUrlRequest);
-  return response.data;
-};
+export const shortenUrl = (originalUrl: string) =>
+  apiClient.post<LinkStatsResponse>("/shorten", { originalUrl });
+
+// get stats for one short link
+export const getLinkStats = (shortCode: string) =>
+  apiClient.get<LinkStatsResponse>(`/${shortCode}/stats`);
+
+// get overview stats
+export const getOverviewStats = () =>
+  apiClient.get<OverviewStatsResponse>("/stats/overview");

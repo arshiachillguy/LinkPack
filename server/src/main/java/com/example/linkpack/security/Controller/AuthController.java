@@ -1,10 +1,9 @@
-package com.example.linkpack.Controller;
+package com.example.linkpack.security.Controller;
 
-import com.example.linkpack.Models.JwtResponse;
-import com.example.linkpack.Models.User;
-import com.example.linkpack.RepositoryLink.UserRepository;
-import com.example.linkpack.Services.JwtService;
-import io.jsonwebtoken.Jwt;
+import com.example.linkpack.security.Model.JwtResponse;
+import com.example.linkpack.security.Model.User;
+import com.example.linkpack.security.Repository.UserRepository;
+import com.example.linkpack.security.service.JwtService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

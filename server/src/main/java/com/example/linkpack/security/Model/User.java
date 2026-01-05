@@ -1,4 +1,4 @@
-package com.example.linkpack.Models;
+package com.example.linkpack.security.Model;
 
 import jakarta.persistence.*;
 
